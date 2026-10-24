@@ -1,0 +1,175 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="VerifyAI analyzes images for signs of AI generation.">
+  <title>VerifyAI | AI Image Detector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">V</span>
+      <span>Verify<span class="accent">AI</span></span>
+    </a>
+    <nav>
+      <a href="#how-it-works">How it works</a>
+      <a href="#about">About</a>
+    </nav>
+    <span class="status"><span class="status-dot"></span> System ready</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span>✦</span> AI MEDIA ANALYSIS</div>
+      <h1>Is it real or<br><span class="gradient-text">AI-generated?</span></h1>
+      <p class="hero-description">
+        Upload an image and let VerifyAI analyze it for signs of AI generation.
+        Get an experimental result in seconds.
+      </p>
+    </section>
+
+    <section class="workspace" aria-label="Image analysis">
+      <div class="upload-card">
+        <div class="section-heading">
+          <div>
+            <span class="step-label">STEP 01</span>
+            <h2>Upload your image</h2>
+          </div>
+          <span class="file-limit">MAX 10 MB</span>
+        </div>
+
+        <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+
+        <div id="dropZone" class="drop-zone" role="button" tabindex="0"
+             aria-label="Choose an image or drag and drop">
+          <div id="emptyState">
+            <div class="upload-icon">↑</div>
+            <h3>Drop your image here</h3>
+            <p>or <span class="accent">browse files</span> from your device</p>
+            <div class="format-tags">
+              <span>JPG</span><span>PNG</span><span>WEBP</span>
+            </div>
+          </div>
+
+          <div id="previewState" class="preview-state" hidden>
+            <img id="imagePreview" alt="Selected image preview">
+            <div id="fileName" class="file-name"></div>
+            <button id="removeImage" class="remove-button" type="button">Remove image</button>
+          </div>
+        </div>
+
+        <p id="uploadMessage" class="message" role="status" aria-live="polite"></p>
+
+        <button id="analyzeButton" class="primary-button" type="button" disabled>
+          <span id="buttonText">Analyze image</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p class="privacy-note">Images are processed by the analysis service. Avoid uploading sensitive images.</p>
+      </div>
+
+      <div class="result-card" id="resultCard" aria-live="polite">
+        <div class="section-heading">
+          <div>
+            <span class="step-label">STEP 02</span>
+            <h2>Analysis result</h2>
+          </div>
+          <span class="result-symbol">✦</span>
+        </div>
+
+        <div id="initialResult" class="initial-result">
+          <div class="scan-art">
+            <div class="scan-ring ring-one"></div>
+            <div class="scan-ring ring-two"></div>
+            <div class="scan-core">✧</div>
+          </div>
+          <h3>Ready when you are</h3>
+          <p>Your image analysis will appear here after you upload an image.</p>
+          <div class="placeholder-lines"><span></span><span></span><span></span></div>
+        </div>
+
+        <div id="loadingState" class="loading-state" hidden>
+          <div class="spinner"></div>
+          <h3>Analyzing your image</h3>
+          <p>The model is examining the image. This may take a little while.</p>
+        </div>
+
+        <div id="resultContent" hidden>
+          <div id="predictionBadge" class="prediction-badge">Analysis complete</div>
+          <h3 id="predictionTitle" class="prediction-title">Result</h3>
+          <p id="predictionDescription" class="prediction-description"></p>
+
+          <div class="scores">
+            <div class="score-row">
+              <div class="score-label"><span>Real label score</span><strong id="realScore">—</strong></div>
+              <div class="score-track"><span id="realBar" class="score-fill real-fill"></span></div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>Fake label score</span><strong id="fakeScore">—</strong></div>
+              <div class="score-track"><span id="fakeBar" class="score-fill fake-fill"></span></div>
+            </div>
+            <p class="score-note">Scores represent model outputs, not calibrated probabilities.</p>
+          </div>
+
+          <div class="result-disclaimer">
+            <strong>Important notice</strong>
+            <p>VerifyAI provides an experimental result. It may be wrong and is not proof that an image is real or AI-generated.</p>
+          </div>
+
+          <button id="resetButton" class="secondary-button" type="button">Analyze another image</button>
+        </div>
+
+        <div id="errorState" class="error-state" hidden>
+          <h3>Analysis could not be completed</h3>
+          <p id="errorMessage"></p>
+          <button id="retryButton" class="secondary-button" type="button">Try again</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="info-section">
+      <div class="section-intro">
+        <span class="step-label">THE PROCESS</span>
+        <h2>Simple. Fast. Transparent.</h2>
+        <p>Three steps to get an experimental image analysis.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01</span>
+          <h3>Upload</h3>
+          <p>Select a JPG, PNG, or WEBP image from your device.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02</span>
+          <h3>Analyze</h3>
+          <p>The connected machine-learning model processes your image.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03</span>
+          <h3>Review</h3>
+          <p>Review the prediction and its model scores carefully.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="notice-section">
+      <span class="notice-icon">ⓘ</span>
+      <div>
+        <h3>Responsible use of AI detection</h3>
+        <p>AI detectors can make mistakes. Image compression, editing, unfamiliar generators, and other factors can affect results. Do not use a VerifyAI result alone to make important decisions about a person or image.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#"><span class="brand-icon">V</span><span>Verify<span class="accent">AI</span></span></a>
+    <p>Experimental AI image analysis · Use results responsibly</p>
+    <span>© <span id="year"></span> VerifyAI</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
